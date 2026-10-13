@@ -61,6 +61,10 @@ resource "aws_iam_instance_profile" "app" {
 
 locals {
   images = [var.BACKEND_IMAGE, var.FRONTEND_IMAGE]
+
+  // it extracts from something like this : 
+  // 123456789012.dkr.ecr.eu-central-1.amazonaws.com/team/app/backend:v1 to 
+  // arn:aws:ecr:eu-central-1:123456789012:repository/team/app/backend
   repository_arns = distinct([for image in local.images :
     "arn:aws:ecr:${var.REGION}:${split(".", image)[0]}:repository/${split(":", split("@", join("/", slice(split("/", image), 1, length(split("/", image)))))[0])[0]}"
   ])
@@ -75,6 +79,12 @@ locals {
     DB_PASSWORD      = var.DB_PASSWORD
     DB_ROOT_PASSWORD = var.DB_ROOT_PASSWORD
   }
+
+  // this will create a file /opt/random-generator/runtime.env with the following content:
+  // AWS_REGION='eu-central-1'
+  // BACKEND_IMAGE='834251003876.dkr.ecr.eu-central-1.amazonaws.com/dev/random-generator-repository/x64/backend:latest'
+  // FRONTEND_IMAGE='834251003876.dkr.ecr.eu-central-1.amazonaws.com/dev/random-generator-repository/x64/frontend:latest'
+  // DB_NAME='random_generator'
   runtime_env = join("\n", [for key, value in local.runtime_values :
     "${key}='${replace(value, "'", "'\"'\"'")}'"
   ])

@@ -74,13 +74,13 @@ jobs:
 
       - name: Push backend image
         run: |
-          docker tag backend:latest 834251003876.dkr.ecr.eu-central-1.amazonaws.com/preprod/random-generator-repository/backend:latest
-          docker push 834251003876.dkr.ecr.eu-central-1.amazonaws.com/preprod/random-generator-repository/backend:latest 
+          docker tag backend:latest 834251003876.dkr.ecr.eu-central-1.amazonaws.com/preprod/random-generator-repository/x64/backend:latest
+          docker push 834251003876.dkr.ecr.eu-central-1.amazonaws.com/preprod/random-generator-repository/x64/backend:latest 
       
       - name: Push frontend image
         run: |
-          docker tag frontend:latest 834251003876.dkr.ecr.eu-central-1.amazonaws.com/preprod/random-generator-repository/frontend:latest
-          docker push 834251003876.dkr.ecr.eu-central-1.amazonaws.com/preprod/random-generator-repository/frontend:latest     
+          docker tag frontend:latest 834251003876.dkr.ecr.eu-central-1.amazonaws.com/preprod/random-generator-repository/x64/frontend:latest
+          docker push 834251003876.dkr.ecr.eu-central-1.amazonaws.com/preprod/random-generator-repository/x64/frontend:latest     
 
           
 
