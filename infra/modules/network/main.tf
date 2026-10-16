@@ -1,6 +1,12 @@
-provider "aws" {
-  region = var.REGION
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
 }
+
 
 # The VPC contains the public ALB/NAT and private application server.
 resource "aws_vpc" "random-generator-vpc" {
